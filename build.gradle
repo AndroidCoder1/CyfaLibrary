@@ -1,0 +1,108 @@
+apply plugin: 'com.android.library'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'io.realm:realm-gradle-plugin:2.3.1'
+    }
+}
+
+repositories {
+    maven {
+        url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo'
+    }
+}
+
+apply plugin: 'realm-android'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    publishNonDefault true
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        resValue "string", "PARSE_URL", "https://cyfa-dev.herokuapp.com/parse/"
+        resValue "string", "PARSE_APP_ID", "wFViOpJC6HdotAW4mvJByRbzPR6nKSrOAkpN9FaQ"
+        resValue "string", "PARSE_CLIENT_ID", "Wv9owXuKniqqM0kCf6roxwCkLlIKxKvIGY2RXTk3"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "SOME_FLAG", "true"
+        }
+        debug {
+            buildConfigField "boolean", "SOME_FLAG", "true"
+        }
+    }
+}
+
+dependencies {
+
+    final FIREBASE_VERSION = '10.2.4'
+
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    testCompile 'junit:junit:4.12'
+
+    compile ('com.parse.bolts:bolts-android:1.4.0'){
+        transitive = true
+    }
+    compile ('com.parse.bolts:bolts-applinks:1.4.0'){
+        transitive = true
+    }
+    compile ('com.parse:parse-android:1.13.1'){
+        transitive = true
+    }
+
+    /* Firebase */
+    compile ("com.google.firebase:firebase-database:$FIREBASE_VERSION"){
+        transitive = true
+    }
+    compile ("com.google.firebase:firebase-storage:$FIREBASE_VERSION"){
+        transitive = true
+    }
+    compile ("com.google.firebase:firebase-auth:$FIREBASE_VERSION"){
+        transitive = true
+    }
+    compile ("com.google.firebase:firebase-messaging:$FIREBASE_VERSION"){
+        transitive = true
+    }
+    compile ("com.google.firebase:firebase-core:$FIREBASE_VERSION"){
+        transitive = true
+    }
+    compile ("com.google.firebase:firebase-invites:$FIREBASE_VERSION"){
+        transitive = true
+    }
+
+    compile ("com.google.code.gson:gson:2.7"){
+        transitive = true
+    }
+    compile 'com.scottyab:aescrypt:0.0.1'
+
+    compile 'id.zelory:compressor:1.0.2'
+
+    compile ('com.sromku:simple-storage:1.2.0'){
+        transitive = true
+    }
+
+    compile ('com.facebook.stetho:stetho:1.4.2'){
+        transitive = true
+    }
+    compile ('com.uphyca:stetho_realm:2.0.0')
+}
