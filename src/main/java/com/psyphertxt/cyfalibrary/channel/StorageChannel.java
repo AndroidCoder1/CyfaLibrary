@@ -59,7 +59,7 @@ import id.zelory.compressor.Compressor;
 //===============  Media Sharing ==============//
 public class StorageChannel {
 
-    private static final String DIR_MAIN = "Cyfa/";
+    private static final String DIR_MAIN = "com.psyphertxt.cyfalibrary.Cyfa/";
     private static final String DIR_QRCODE = "QR Codes";
     private static final String DIR_PROFILE_PICTURES = "Profile Pictures/";
     private static final String DIR_IMAGES = "Images/";

@@ -67,7 +67,7 @@ public class UserAccount implements Backend.Account {
                 if (e == null) {
                     callbackForResults.success(user);
                 } else {
-
+                    callbackForResults.error(e.getMessage());
                 }
             }
         });

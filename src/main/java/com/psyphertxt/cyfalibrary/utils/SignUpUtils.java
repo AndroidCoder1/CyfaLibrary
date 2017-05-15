@@ -2,10 +2,13 @@ package com.psyphertxt.cyfalibrary.utils;
 
 
 import android.content.Context;
+import android.util.Log;
+
 import com.psyphertxt.cyfalibrary.Config;
 import com.psyphertxt.cyfalibrary.Prefs;
 import com.psyphertxt.cyfalibrary.backend.parse.UserAccount;
 import com.psyphertxt.cyfalibrary.listeners.CallbackListener;
+import com.psyphertxt.cyfalibrary.models.Country;
 import com.psyphertxt.cyfalibrary.models.ErrorCodes;
 import com.psyphertxt.cyfalibrary.models.SignUp;
 
@@ -13,6 +16,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+
+import static com.psyphertxt.cyfalibrary.Config.TAG;
 
 /**
  * Class with helper methods for signing up.
@@ -22,13 +27,12 @@ import java.util.HashMap;
 
 public class SignUpUtils {
 
-    public static void validateUser(final Context context, final CallbackListener.onCompletionListener listener) {
+    public static void validateUser(final Context context, final SignUp signUp, final CallbackListener.onCompletionListener listener) {
 
         //lets create a new instance of the user account
         //to access user features
         final UserAccount userAccount = new UserAccount();
         final Prefs prefs = new Prefs(context);
-        final SignUp signUp = (SignUp) prefs.getStoredObject(Config.KEY_SIGN_UP);
 
         //TODO check the type of network 4G, 3G, H
         if (NetworkUtils.isAvailable(context)) {
@@ -38,6 +42,12 @@ public class SignUpUtils {
             //load next Verify Code Activity
 
             listener.before(context);
+            //lets create a new country instance
+            CountryUtils.init(context);
+
+            //retrieve and set the users country and zip code
+            Country country = CountryUtils.getCountry(context);
+            signUp.setCallingCode(country.getCallingCode());
 
             //check if the user exist in our data browser
             userAccount.userValidation(signUp.getPhoneNumber(), new CallbackListener.callbackForResults() {
@@ -51,6 +61,8 @@ public class SignUpUtils {
                         //key as string and value as any object
                         @SuppressWarnings("unchecked")
                         HashMap<String, Object> _result = (HashMap<String, Object>) result;
+
+                        Log.d(TAG, result.toString());
 
                         int responseCode = (Integer) _result.get(NetworkUtils.KEY_RESPONSE_CODE);
 
@@ -104,7 +116,7 @@ public class SignUpUtils {
 
             //get user data from event bus
             final Prefs prefs = new Prefs(context);
-            final SignUp signUp = (SignUp) prefs.getStoredObject(Config.KEY_SIGN_UP);
+            final SignUp signUp = (SignUp) prefs.getStoredSignUpObject(Config.KEY_SIGN_UP);
 
             if (signUp != null) {
 
@@ -122,8 +134,6 @@ public class SignUpUtils {
                     Prefs settings = new Prefs(context);
                     settings.setPhoneNumber(signUp.getPhoneNumber());
                     settings.setCallingCode(signUp.getCallingCode());
-
-                    //EventBus.getDefault().postSticky(signUp);
 
                     if (!signUp.isExisting()) {
 

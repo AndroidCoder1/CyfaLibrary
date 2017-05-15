@@ -1,7 +1,11 @@
 package com.psyphertxt.cyfalibrary;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.os.Bundle;
+import android.util.Log;
 
 import com.facebook.stetho.Stetho;
 import com.parse.Parse;
@@ -84,6 +88,7 @@ public class Config {
     public static final String KEY_CODE = "code";
     public static final String KEY_IS_EXISTING_USER = "isExistingUser";
     public static final String KEY_TEXT = "text";
+    public static final String TAG = Config.class.getSimpleName();
     public static final String KEY_LAST_MESSAGE = "lastMessage";
     public static final String KEY_TIMESTAMP = "timestamp";
     public static final String KEY_DELIVERED_AT = "deliveredAt";
@@ -196,57 +201,42 @@ public class Config {
     public static final String KEY_SIGN_UP = "key_sign_up";
     public static Boolean IS_PASSCODE = false;
     public static boolean THEME_CHANGED = false;
+    private static String parse_app_id = "";
+    private static String parse_client_id = "";
+    private static String parse_url = "";
     public static int MODE = 0;
-
-    /**
-     * this method should be called in a class which extends Application (entry point of main
-     * application)
-     * the reason being it contains most of the startup methods needed
-     * for the application to work well
-     *
-     * @param context the application context
-     */
-    public static void setup(Context context) {
-
-        Realm.init(context);
-
-        //set up subclasses for parse
-        ParseObject.registerSubclass(User.class);
-        // ParseObject.registerSubclass(ContextUser.class);
-
-        //get application resources
-        Resources resources = context.getResources();
-
-        //initialize parse server
-        Parse.initialize(new Parse.Configuration.Builder(context)
-                .applicationId(resources.getString(0))
-                .clientKey(resources.getString(0))
-                .server(resources.getString(0))
-                .build());
-    }
-
-    public static void debug(Context context) {
-
-        if (BuildConfig.DEBUG) {
-
-            // Create an InitializerBuilder
-            // Enable Chrome DevTools
-            // Use the InitializerBuilder to generate an Initializer
-            // Initialize Stetho with the Initializer
-            Stetho.initialize(
-                    Stetho.newInitializerBuilder(context)
-                            .enableDumpapp(Stetho.defaultDumperPluginsProvider(context))
-                            .enableWebKitInspector(RealmInspectorModulesProvider.builder(context).build())
-                            .build());
-
-        }
-    }
 
     public static final class NotificationType {
         public static final int TABBED = 0;
         public static final int NOTIFICATION = 1;
         public static final int PUSH_NOTIFICATION = 2;
         public static final int STATUS_NOTIFICATION = 3;
+    }
+
+
+    public static void initilaizeParseConfigs(Context context){
+        try {
+            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            Bundle bundle = ai.metaData;
+            parse_app_id = bundle.getString("parse_app_id");
+            parse_client_id = bundle.getString("parse_client_id");
+            parse_url = bundle.getString("parse_url");
+
+            Log.d(TAG, "Parse App id "+parse_app_id);
+            Log.d(TAG, "Parse Url "+parse_url);
+            Log.d(TAG, "Parse Client key "+parse_client_id);
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e(TAG, "Failed to load meta-data, NameNotFound: " + e.getMessage());
+        } catch (NullPointerException e) {
+            Log.e(TAG, "Failed to load meta-data, NullPointer: " + e.getMessage());
+        }
+
+        //initialize parse server
+        Parse.initialize(new Parse.Configuration.Builder(context)
+                .applicationId(parse_app_id)
+                .clientKey(parse_client_id)
+                .server(parse_url)
+                .build());
     }
 
 }

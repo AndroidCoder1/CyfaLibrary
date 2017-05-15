@@ -2,6 +2,7 @@ package com.psyphertxt.cyfalibrary.utils;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.psyphertxt.cyfalibrary.Config;
 import com.psyphertxt.cyfalibrary.Prefs;
@@ -14,6 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+
+import static com.psyphertxt.cyfalibrary.Config.TAG;
 
 /**
  * Class with helper methods for signing up.
@@ -33,7 +36,7 @@ public class ProfileUtils {
         //to access user features
         final UserAccount userAccount = new UserAccount();
         final Prefs prefs = new Prefs(context);
-        final SignUp signUp = (SignUp) prefs.getStoredObject(Config.KEY_SIGN_UP);
+        final SignUp signUp = (SignUp) prefs.getStoredSignUpObject(Config.KEY_SIGN_UP);
 
         //TODO check the type of network 4G, 3G, H
         if (NetworkUtils.isAvailable(context)) {
@@ -77,6 +80,7 @@ public class ProfileUtils {
                                 signUp.setUsername((String) _data.get(Config.KEY_USERNAME));
                             }
 
+                            Log.d(TAG, signUp.toString());
                             //update sign up class
                             prefs.storeObject(Config.KEY_SIGN_UP, signUp);
 
@@ -98,7 +102,6 @@ public class ProfileUtils {
             });
 
         } else {
-
             listener.error(ErrorCodes.NETWORK_ERROR.toString());
         }
     }
@@ -109,7 +112,7 @@ public class ProfileUtils {
 
             //get user data from event bus
             final Prefs prefs = new Prefs(context);
-            final SignUp signUp = (SignUp) prefs.getStoredObject(Config.KEY_SIGN_UP);
+            final SignUp signUp = (SignUp) prefs.getStoredSignUpObject(Config.KEY_SIGN_UP);
 
             if (signUp != null) {
 

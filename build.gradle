@@ -30,9 +30,6 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-        resValue "string", "PARSE_URL", "https://cyfa-dev.herokuapp.com/parse/"
-        resValue "string", "PARSE_APP_ID", "wFViOpJC6HdotAW4mvJByRbzPR6nKSrOAkpN9FaQ"
-        resValue "string", "PARSE_CLIENT_ID", "Wv9owXuKniqqM0kCf6roxwCkLlIKxKvIGY2RXTk3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -40,10 +37,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "boolean", "SOME_FLAG", "true"
         }
         debug {
-            buildConfigField "boolean", "SOME_FLAG", "true"
         }
     }
 }

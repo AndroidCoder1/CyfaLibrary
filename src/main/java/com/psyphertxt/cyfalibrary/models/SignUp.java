@@ -67,4 +67,15 @@ public class SignUp {
     }
 
 
+    @Override
+    public String toString() {
+        return "SignUp{" +
+                "number='" + number + '\'' +
+                ", code=" + code +
+                ", sessionToken='" + sessionToken + '\'' +
+                ", isExisting=" + isExisting +
+                ", username='" + username + '\'' +
+                ", callingCode='" + callingCode + '\'' +
+                '}';
+    }
 }

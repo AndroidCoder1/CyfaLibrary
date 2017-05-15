@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.psyphertxt.cyfalibrary.models.SignUp;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -262,9 +263,9 @@ public class Prefs {
         sharedPreferences.edit().putString(key, mGson.toJson(object, type)).commit();
     }
 
-    public Object getStoredObject(String key)
+    public Object getStoredSignUpObject(String key)
     {
-        final Type type = new TypeToken<ArrayList<Object>>() {}.getType();
+        final Type type = new TypeToken<SignUp>() {}.getType();
 
         if(mGson.fromJson(sharedPreferences.getString(key, null), type) == null){
             return null;
