@@ -6,10 +6,12 @@ import android.util.Log;
 
 import com.psyphertxt.cyfalibrary.Config;
 import com.psyphertxt.cyfalibrary.Prefs;
+import com.psyphertxt.cyfalibrary.backend.parse.User;
 import com.psyphertxt.cyfalibrary.backend.parse.UserAccount;
 import com.psyphertxt.cyfalibrary.listeners.CallbackListener;
 import com.psyphertxt.cyfalibrary.models.Country;
 import com.psyphertxt.cyfalibrary.models.ErrorCodes;
+import com.psyphertxt.cyfalibrary.models.Profile;
 import com.psyphertxt.cyfalibrary.models.SignUp;
 
 import org.json.JSONException;
@@ -33,7 +35,7 @@ public class SignUpUtils {
         //to access user features
         final UserAccount userAccount = new UserAccount();
         final Prefs prefs = new Prefs(context);
-
+        listener.before(context);
         //TODO check the type of network 4G, 3G, H
         if (NetworkUtils.isAvailable(context)) {
 
@@ -41,7 +43,6 @@ public class SignUpUtils {
             //show loading progress
             //load next Verify Code Activity
 
-            listener.before(context);
             //lets create a new country instance
             CountryUtils.init(context);
 
@@ -112,6 +113,8 @@ public class SignUpUtils {
 
     public static void validateCode(final Context context, String verifyCode, final CallbackListener.onCompletionListener listener) {
 
+        listener.before(context);
+
         if (NetworkUtils.isAvailable(context)) {
 
             //get user data from event bus
@@ -146,7 +149,6 @@ public class SignUpUtils {
 
                                     @Override
                                     public void success(Object result) {
-
                                         listener.success();
 
                                     }

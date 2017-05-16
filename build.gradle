@@ -1,4 +1,24 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+
+ext {
+    PUBLISH_GROUP_ID = 'com.psyphertxt' //Change this to your own domain
+    PUBLISH_ARTIFACT_ID = 'cyfalibrary' //Change this to the name of your library
+    PUBLISH_VERSION = '1.1.3' // Version code you want. 1.0.0 is a good start
+}
+
+allprojects {
+    repositories {
+        maven {
+            url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo'
+        }
+        jcenter()
+        mavenCentral()
+
+    }
+}
 
 buildscript {
     repositories {
@@ -22,8 +42,6 @@ apply plugin: 'realm-android'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
-
-    publishNonDefault true
 
     defaultConfig {
         minSdkVersion 15
@@ -99,5 +117,30 @@ dependencies {
     compile ('com.facebook.stetho:stetho:1.4.2'){
         transitive = true
     }
-    compile ('com.uphyca:stetho_realm:2.0.0')
+    compile ('com.uphyca:stetho_realm:2.0.0'){
+        transitive = true
+    }
 }
+
+//
+//task sourcesJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+//    classifier = 'sources'
+//}
+//
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+//
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+//
+//artifacts {
+//    archives javadocJar
+//    archives sourcesJar
+//}
+
+apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
