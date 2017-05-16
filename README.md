@@ -49,20 +49,17 @@ public class MainActivity extends Activity {
                     }
         
                     @Override
-                    public void success() {
+                    public void success(SignUp signUp) {
                         dialog.dismiss();
-                        Prefs prefs = new Prefs(MainActivity.this);
-                        final SignUp signUp = (SignUp) prefs.getStoredSignUpObject(Config.KEY_SIGN_UP);
                         Log.d(TAG, signUp.toString());
-   
                     }
-        
+                    
                     @Override
                     public void error(String error) {
                         Log.e(TAG, error);
                         dialog.dismiss();
                     }
-                });  
+               });
         }
 
 
