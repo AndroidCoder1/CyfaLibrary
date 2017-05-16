@@ -2,6 +2,9 @@ package com.psyphertxt.cyfalibrary.listeners;
 
 import android.content.Context;
 
+import com.psyphertxt.cyfalibrary.backend.parse.User;
+import com.psyphertxt.cyfalibrary.models.SignUp;
+
 import java.io.File;
 
 /**
@@ -24,6 +27,26 @@ public class CallbackListener {
         void before(Context context);
 
         void success(File file);
+
+        void error(String error);
+
+    }
+
+    public interface onSignUpCompletionListener {
+
+        void before(Context context);
+
+        void success(SignUp signUp);
+
+        void error(String error);
+
+    }
+
+    public interface onUserCompletionListener {
+
+        void before(Context context);
+
+        void success(User user);
 
         void error(String error);
 

@@ -29,7 +29,7 @@ import static com.psyphertxt.cyfalibrary.Config.TAG;
 
 public class SignUpUtils {
 
-    public static void validateUser(final Context context, final SignUp signUp, final CallbackListener.onCompletionListener listener) {
+    public static void validateUser(final Context context, final SignUp signUp, final CallbackListener.onSignUpCompletionListener listener) {
 
         //lets create a new instance of the user account
         //to access user features
@@ -92,7 +92,7 @@ public class SignUpUtils {
                             listener.error(ErrorCodes.RESPONSE_CODE_EXCEPTION_ERROR.toString());
                         }
 
-                        listener.success();
+                        listener.success(signUp);
 
                     } catch (Exception e) {
                         listener.error(ErrorCodes.JSON_EXCEPTION_ERROR.toString());
@@ -111,7 +111,7 @@ public class SignUpUtils {
         }
     }
 
-    public static void validateCode(final Context context, String verifyCode, final CallbackListener.onCompletionListener listener) {
+    public static void validateCode(final Context context, String verifyCode, final CallbackListener.onUserCompletionListener listener) {
 
         listener.before(context);
 
@@ -149,7 +149,7 @@ public class SignUpUtils {
 
                                     @Override
                                     public void success(Object result) {
-                                        listener.success();
+                                        listener.success((User)result);
 
                                     }
 
@@ -175,7 +175,8 @@ public class SignUpUtils {
                             userAccount.existingUser(user, new CallbackListener.callbackForResults() {
                                 @Override
                                 public void success(Object result) {
-                                    listener.success();
+                                    prefs.storeObject(Config.KEY_USER, result);
+                                    listener.success((User)result);
                                 }
 
                                 @Override
