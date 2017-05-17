@@ -6,7 +6,7 @@ CyfaLibrary is installed by adding the following dependency to your app’s buil
 
 ```groovy
 dependencies {
-    compile ('com.psyphertxt:cyfalibrary:1.1.4@aar'){
+    compile ('com.psyphertxt:cyfalibrary:1.1.5@aar'){
         transitive = true
     }
 }
