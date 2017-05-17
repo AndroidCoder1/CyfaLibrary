@@ -1,4 +1,4 @@
-# CyfaLibrary
+# CyfaLibrary [ ![Download](https://api.bintray.com/packages/psyphertxt/Cyfa/CyfaLibrary/images/download.svg?version=v1.1.5) ](https://bintray.com/psyphertxt/Cyfa/CyfaLibrary/v1.1.5/link)
 Cyfa library project is a wrapper library containing logics to sign up user using the 2-factor authentication mode(usual authentication + SMS authentication) and other various android Utility codes.
 
 ## Installation
@@ -112,5 +112,36 @@ Add `<meta>` tag to `<application>` tag specifying your parse url, client key an
         <meta-data android:name="parse_client_id" android:value="@string/PARSE_APPLICATION_CLIENT_KEY" />
         <meta-data android:name="parse_app_id" android:value="@string/PARSE_APPLICATION_ID" />
     </application>
+```
+
+### App's build.gradle
+
+In cases where you have different parse keys for different flavors, add this to the app's `build.gradle`
+```groovy
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    
+    productFlavors {
+
+        dev {
+            resValue 'string', 'PARSE_APPLICATION_ID', '"YOUR_APP_ID"'
+            resValue 'string', 'PARSE_APPLICATION_CLIENT_KEY', '"YOUR_CLIENT_KEY"'
+            resValue 'string', 'PARSE_APPLICATION_PARSE_URL', '"YOUR_PARSE_URL"'
+        }
+
+        beta {
+            resValue 'string', 'PARSE_APPLICATION_ID', '"YOUR_APP_ID"'
+                        resValue 'string', 'PARSE_APPLICATION_CLIENT_KEY', '"YOUR_CLIENT_KEY"'
+                        resValue 'string', 'PARSE_APPLICATION_PARSE_URL', '"YOUR_PARSE_URL"'
+        }
+
+        prod {
+            resValue 'string', 'PARSE_APPLICATION_ID', '"YOUR_APP_ID"'
+            resValue 'string', 'PARSE_APPLICATION_CLIENT_KEY', '"YOUR_CLIENT_KEY"'
+            resValue 'string', 'PARSE_APPLICATION_PARSE_URL', '"YOUR_PARSE_URL"'
+        }
+    }
+}
 ```
 
