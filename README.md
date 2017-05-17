@@ -42,6 +42,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         //Method to validate user details
+        SignUp signUp = new SignUp();
+        signUp.setNumber("000000");
         SignUpUtils.validateUser(MainActivity.this, signUp, new CallbackListener.onCompletionListener() {
                     @Override
                     public void before(Context context) {
