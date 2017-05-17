@@ -1,6 +1,5 @@
 # CyfaLibrary [ ![Download](https://api.bintray.com/packages/psyphertxt/Cyfa/CyfaLibrary/images/download.svg?version=v1.1.5) ](https://bintray.com/psyphertxt/Cyfa/CyfaLibrary/v1.1.5/link)
-Cyfa library project is a wrapper library containing logics to sign up user using the 2-factor authentication mode(usual authentication + SMS authentication) and other various android Utility codes.
-
+Cyfa library project is a wrapper library for Android, for signing up users using the 2-factor Authentication mode(usual authentication + SMS verification) and other various Android Utility codes.
 ## Installation
 CyfaLibrary is installed by adding the following dependency to your app’s build.gradle file: 
 
@@ -15,7 +14,7 @@ dependencies {
 ## Usage
 ### Basic
 
-To begin using CyfaLibrary, have your `Application` and add code below to your `onCreate` method:
+To begin using CyfaLibrary, extend the  `Application` class and add code below to your `onCreate` method:
 
 ```java
 public class App extends Application {
