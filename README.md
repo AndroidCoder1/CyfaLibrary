@@ -1,4 +1,4 @@
-# CyfaLibrary
+# CyfaLibrary [ ![Download](https://api.bintray.com/packages/psyphertxt/Cyfa/CyfaLibrary/images/download.svg?version=v1.1.5) ](https://bintray.com/psyphertxt/Cyfa/CyfaLibrary/v1.1.5/link)
 Cyfa library project is a wrapper library for Android, for signing up users using the 2-factor Authentication mode(usual authentication + SMS verification) and other various Android Utility codes.
 
 ## Installation
@@ -6,7 +6,7 @@ CyfaLibrary is installed by adding the following dependency to your app’s buil
 
 ```groovy
 dependencies {
-    compile ('com.psyphertxt:cyfalibrary:1.1.4@aar'){
+    compile ('com.psyphertxt:cyfalibrary:1.1.5@aar'){
         transitive = true
     }
 }
@@ -42,6 +42,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         //Method to validate user details
+        SignUp signUp = new SignUp();
+        signUp.setNumber("000000");
         SignUpUtils.validateUser(MainActivity.this, signUp, new CallbackListener.onCompletionListener() {
                     @Override
                     public void before(Context context) {
@@ -110,5 +112,36 @@ Add `<meta>` tag to `<application>` tag specifying your parse url, client key an
         <meta-data android:name="parse_client_id" android:value="@string/PARSE_APPLICATION_CLIENT_KEY" />
         <meta-data android:name="parse_app_id" android:value="@string/PARSE_APPLICATION_ID" />
     </application>
+```
+
+### App's build.gradle
+
+In cases where you have different parse keys for different flavors, add this to the app's `build.gradle`
+```groovy
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    
+    productFlavors {
+
+        dev {
+            resValue 'string', 'PARSE_APPLICATION_ID', '"YOUR_APP_ID"'
+            resValue 'string', 'PARSE_APPLICATION_CLIENT_KEY', '"YOUR_CLIENT_KEY"'
+            resValue 'string', 'PARSE_APPLICATION_PARSE_URL', '"YOUR_PARSE_URL"'
+        }
+
+        beta {
+            resValue 'string', 'PARSE_APPLICATION_ID', '"YOUR_APP_ID"'
+                        resValue 'string', 'PARSE_APPLICATION_CLIENT_KEY', '"YOUR_CLIENT_KEY"'
+                        resValue 'string', 'PARSE_APPLICATION_PARSE_URL', '"YOUR_PARSE_URL"'
+        }
+
+        prod {
+            resValue 'string', 'PARSE_APPLICATION_ID', '"YOUR_APP_ID"'
+            resValue 'string', 'PARSE_APPLICATION_CLIENT_KEY', '"YOUR_CLIENT_KEY"'
+            resValue 'string', 'PARSE_APPLICATION_PARSE_URL', '"YOUR_PARSE_URL"'
+        }
+    }
+}
 ```
 
