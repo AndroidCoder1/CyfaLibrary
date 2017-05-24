@@ -118,7 +118,7 @@ public class SignUpUtils {
 
             //get user data from event bus
             final Prefs prefs = new Prefs(context);
-            final SignUp signUp = (SignUp) prefs.getStoredSignUpObject(CyfaConfig.KEY_SIGN_UP);
+            final SignUp signUp = (SignUp) prefs.getStoredSignUpObject();
 
             if (signUp != null) {
 
