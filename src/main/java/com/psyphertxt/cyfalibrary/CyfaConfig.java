@@ -65,16 +65,9 @@ public class CyfaConfig {
     public static final String DEFINE_GENERATE_HASH = "generateHash";
     public static final String DEFINE_GENERATE_TOKEN = "generateToken";
     public static final String KEY_SIGN_UP = "key_sign_up";
-   private static String parse_app_id = "";
+    private static String parse_app_id = "";
     private static String parse_client_id = "";
     private static String parse_url = "";
-
-    public static final class NotificationType {
-        public static final int TABBED = 0;
-        public static final int NOTIFICATION = 1;
-        public static final int PUSH_NOTIFICATION = 2;
-        public static final int STATUS_NOTIFICATION = 3;
-    }
 
 
     public static void initilaizeParseConfigs(Context context){

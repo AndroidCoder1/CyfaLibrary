@@ -6,7 +6,7 @@ apply plugin: 'com.jfrog.bintray'
 ext {
     PUBLISH_GROUP_ID = 'com.psyphertxt' //Change this to your own domain
     PUBLISH_ARTIFACT_ID = 'cyfalibrary' //Change this to the name of your library
-    PUBLISH_VERSION = '1.1.5' // Version code you want. 1.0.0 is a good start
+    PUBLISH_VERSION = '1.1.7' // Version code you want. 1.0.0 is a good start
 }
 
 allprojects {

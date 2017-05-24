@@ -262,14 +262,14 @@ public class Prefs {
         sharedPreferences.edit().putString(key, mGson.toJson(object, type)).commit();
     }
 
-    public Object getStoredSignUpObject(String key)
+    public Object getStoredSignUpObject()
     {
         final Type type = new TypeToken<SignUp>() {}.getType();
 
-        if(mGson.fromJson(sharedPreferences.getString(key, null), type) == null){
+        if(mGson.fromJson(sharedPreferences.getString(CyfaConfig.KEY_SIGN_UP, null), type) == null){
             return null;
         }else {
-            return mGson.fromJson(sharedPreferences.getString(key, null), type);
+            return mGson.fromJson(sharedPreferences.getString(CyfaConfig.KEY_SIGN_UP, null), type);
         }
     }
     //Settings for Message Action Buttons //

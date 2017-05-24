@@ -1,8 +1,6 @@
 package com.psyphertxt.cyfalibrary;
 
 import android.content.Context;
-
-import com.facebook.stetho.BuildConfig;
 import com.facebook.stetho.Stetho;
 import com.parse.ParseObject;
 import com.psyphertxt.cyfalibrary.backend.parse.User;
@@ -38,10 +36,10 @@ public class Cyfa {
         //set up subclasses for parse
         ParseObject.registerSubclass(User.class);
 
-        debug(context);
+        stethoDebug(context);
     }
 
-    private static void debug(Context context) {
+    private static void stethoDebug(Context context) {
 
         if (BuildConfig.DEBUG) {
 
