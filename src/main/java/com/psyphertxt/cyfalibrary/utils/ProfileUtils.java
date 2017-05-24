@@ -36,7 +36,7 @@ public class ProfileUtils {
         //to access user features
         final UserAccount userAccount = new UserAccount();
         final Prefs prefs = new Prefs(context);
-        final SignUp signUp = (SignUp) prefs.getStoredSignUpObject(CyfaConfig.KEY_SIGN_UP);
+        final SignUp signUp = (SignUp) prefs.getStoredSignUpObject();
 
         //TODO check the type of network 4G, 3G, H
         if (NetworkUtils.isAvailable(context)) {
@@ -112,7 +112,7 @@ public class ProfileUtils {
 
             //get user data from event bus
             final Prefs prefs = new Prefs(context);
-            final SignUp signUp = (SignUp) prefs.getStoredSignUpObject(CyfaConfig.KEY_SIGN_UP);
+            final SignUp signUp = (SignUp) prefs.getStoredSignUpObject();
 
             if (signUp != null) {
 
