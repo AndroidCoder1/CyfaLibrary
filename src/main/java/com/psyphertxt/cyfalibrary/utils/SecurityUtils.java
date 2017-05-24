@@ -6,7 +6,7 @@ import android.view.WindowManager;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
-import com.psyphertxt.cyfalibrary.Config;
+import com.psyphertxt.cyfalibrary.CyfaConfig;
 import com.psyphertxt.cyfalibrary.backend.parse.User;
 import com.psyphertxt.cyfalibrary.listeners.CallbackListener;
 import com.scottyab.aescrypt.AESCrypt;
@@ -40,7 +40,7 @@ public class SecurityUtils {
     }
 
     public static String createUsername(String phoneNumber) {
-        return createSha(phoneNumber, Config.CYFA_IO) + "@" + Config.CYFA_IO_URL;
+        return createSha(phoneNumber, CyfaConfig.CYFA_IO) + "@" + CyfaConfig.CYFA_IO_URL;
     }*/
 
     public static String randomName() {
@@ -63,10 +63,10 @@ public class SecurityUtils {
                 .setTokenHex(true)
                 .build();
 
-        hashMap.put(Config.ID, nameUtils.generate() + String.format("%s-%s", hash(), hash()));
+        hashMap.put(CyfaConfig.ID, nameUtils.generate() + String.format("%s-%s", hash(), hash()));
 
         //you can only get the name after calling generate()
-        hashMap.put(Config.KEY_NAME, nameUtils.getName());
+        hashMap.put(CyfaConfig.KEY_NAME, nameUtils.getName());
         return hashMap;
     }
 
@@ -104,13 +104,13 @@ public class SecurityUtils {
         HashMap<String, String> params = new HashMap<>();
 
         switch (type) {
-            case Config.TOKEN:
-                params.put(Config.KEY_USER_ID, User.getDeviceUserId());
-                params.put(Config.KEY_USERNAME, User.getDeviceUser().getUsername());
+            case CyfaConfig.TOKEN:
+                params.put(CyfaConfig.KEY_USER_ID, User.getDeviceUserId());
+                params.put(CyfaConfig.KEY_USERNAME, User.getDeviceUser().getUsername());
                 break;
 
-            case Config.HASH:
-                params.put(Config.STRING, string);
+            case CyfaConfig.HASH:
+                params.put(CyfaConfig.STRING, string);
                 break;
         }
 
@@ -125,26 +125,26 @@ public class SecurityUtils {
                         if (responseCode == NetworkUtils.RESPONSE_OK) {
 
                             @SuppressWarnings("unchecked")
-                            HashMap<String, Object> data = (HashMap<String, Object>) hashMap.get(Config.DATA);
+                            HashMap<String, Object> data = (HashMap<String, Object>) hashMap.get(CyfaConfig.DATA);
 
                             switch (type) {
-                                case Config.TOKEN:
-                                    if (data.get(Config.TOKEN) != null) {
-                                        callbackForResults.success(data.get(Config.TOKEN));
+                                case CyfaConfig.TOKEN:
+                                    if (data.get(CyfaConfig.TOKEN) != null) {
+                                        callbackForResults.success(data.get(CyfaConfig.TOKEN));
                                     }
                                     break;
 
-                                case Config.HASH:
-                                    if (data.get(Config.HASH) != null) {
-                                        callbackForResults.success(data.get(Config.HASH));
+                                case CyfaConfig.HASH:
+                                    if (data.get(CyfaConfig.HASH) != null) {
+                                        callbackForResults.success(data.get(CyfaConfig.HASH));
                                     }
                                     break;
                             }
                         } else {
-                            callbackForResults.error(responseCode + Config.EMPTY_STRING);
+                            callbackForResults.error(responseCode + CyfaConfig.EMPTY_STRING);
                         }
                     } catch (Exception e1) {
-                        callbackForResults.error(NetworkUtils.UNKNOWN_ERROR + Config.EMPTY_STRING);
+                        callbackForResults.error(NetworkUtils.UNKNOWN_ERROR + CyfaConfig.EMPTY_STRING);
                     }
                 } else {
                     callbackForResults.error(e.getMessage());
@@ -154,11 +154,11 @@ public class SecurityUtils {
     }
 
     public static void generateHash(String string, CallbackListener.callbackForResults callbackForResults) {
-        generator(Config.DEFINE_GENERATE_HASH, Config.HASH, string, callbackForResults);
+        generator(CyfaConfig.DEFINE_GENERATE_HASH, CyfaConfig.HASH, string, callbackForResults);
     }
 
     public static void generateToken(CallbackListener.callbackForResults callbackForResults) {
-        generator(Config.DEFINE_GENERATE_TOKEN, Config.TOKEN, Config.EMPTY_STRING, callbackForResults);
+        generator(CyfaConfig.DEFINE_GENERATE_TOKEN, CyfaConfig.TOKEN, CyfaConfig.EMPTY_STRING, callbackForResults);
     }
 
     public static String encrypt(String Password, String plainText) throws GeneralSecurityException {

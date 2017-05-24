@@ -1,19 +1,11 @@
 package com.psyphertxt.cyfalibrary.channel;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,7 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.psyphertxt.cyfalibrary.Config;
+import com.psyphertxt.cyfalibrary.CyfaConfig;
 import com.psyphertxt.cyfalibrary.Prefs;
 import com.psyphertxt.cyfalibrary.listeners.CallbackListener;
 import com.psyphertxt.cyfalibrary.models.ErrorCodes;
@@ -32,21 +24,11 @@ import com.psyphertxt.cyfalibrary.utils.TextUtils;
 import com.sromku.simple.storage.SimpleStorage;
 import com.sromku.simple.storage.Storage;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import id.zelory.compressor.Compressor;
 
@@ -74,9 +56,9 @@ public class StorageChannel {
     private StorageReference storageRef;
     private StorageReference directoryRef;
     private StorageReference imageRef;
-    private String location = Config.EMPTY_STRING;
-    private String imageLocation = Config.EMPTY_STRING;
-    private String extension = Config.EMPTY_STRING;
+    private String location = CyfaConfig.EMPTY_STRING;
+    private String imageLocation = CyfaConfig.EMPTY_STRING;
+    private String extension = CyfaConfig.EMPTY_STRING;
     private Bitmap bitmap;
     private String fileName;
     private byte[] bitmapData;
@@ -110,7 +92,7 @@ public class StorageChannel {
         if (prefs.getCameraPermission()) {
 
             if (profile.getImageName() != null &&
-                    !prefs.getProfileImageName().equals(Config.KEY_DEFAULT)) {
+                    !prefs.getProfileImageName().equals(CyfaConfig.KEY_DEFAULT)) {
 
                 //check if the users profile exist on the local device
                 if (storageChannel != null) {
@@ -384,7 +366,7 @@ public class StorageChannel {
             String location = DIR_MAIN + this.location + imageLocation;
             if (storage.isFileExist(location, fileName + extension)) {
                 List<File> files = storage.getFiles(location, fileName + extension);
-                if (files.size() > Config.NUMBER_ZERO) {
+                if (files.size() > CyfaConfig.NUMBER_ZERO) {
                     for (File file : files) {
                         if (file.getName().equals(fileName + extension)) {
                             return file;

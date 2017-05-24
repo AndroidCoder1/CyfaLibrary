@@ -1,9 +1,8 @@
 package com.psyphertxt.cyfalibrary.models;
 
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
-import com.psyphertxt.cyfalibrary.Config;
+import com.psyphertxt.cyfalibrary.CyfaConfig;
 import com.psyphertxt.cyfalibrary.channel.StorageChannel;
 
 import java.util.HashMap;
@@ -32,24 +31,24 @@ public class Profile {
             profile.setUserId(userId);
         }
 
-        if (map.get(Config.KEY_DISPLAY_NAME) != null) {
-            profile.setDisplayName((String) map.get(Config.KEY_DISPLAY_NAME));
+        if (map.get(CyfaConfig.KEY_DISPLAY_NAME) != null) {
+            profile.setDisplayName((String) map.get(CyfaConfig.KEY_DISPLAY_NAME));
         }
 
-        if (map.get(Config.KEY_STATUS_MESSAGE) != null) {
-            profile.setStatusMessage((String) map.get(Config.KEY_STATUS_MESSAGE));
+        if (map.get(CyfaConfig.KEY_STATUS_MESSAGE) != null) {
+            profile.setStatusMessage((String) map.get(CyfaConfig.KEY_STATUS_MESSAGE));
         }
 
-        if (map.get(Config.KEY_IMAGE_NAME) != null) {
-            profile.setImageName((String) map.get(Config.KEY_IMAGE_NAME));
+        if (map.get(CyfaConfig.KEY_IMAGE_NAME) != null) {
+            profile.setImageName((String) map.get(CyfaConfig.KEY_IMAGE_NAME));
         }
 
-        if (map.get(Config.KEY_PUSH_ID) != null) {
-            profile.setPushId((String) map.get(Config.KEY_PUSH_ID));
+        if (map.get(CyfaConfig.KEY_PUSH_ID) != null) {
+            profile.setPushId((String) map.get(CyfaConfig.KEY_PUSH_ID));
         }
 
-        if (map.get(Config.KEY_THEME) != null) {
-            profile.setTheme((String) map.get(Config.KEY_THEME));
+        if (map.get(CyfaConfig.KEY_THEME) != null) {
+            profile.setTheme((String) map.get(CyfaConfig.KEY_THEME));
         }
 
         return profile;
@@ -108,23 +107,23 @@ public class Profile {
         HashMap<String, Object> result = new HashMap<>();
 
         if (displayName != null) {
-            result.put(Config.KEY_DISPLAY_NAME, displayName);
+            result.put(CyfaConfig.KEY_DISPLAY_NAME, displayName);
         }
 
         if (statusMessage != null) {
-            result.put(Config.KEY_STATUS_MESSAGE, statusMessage);
+            result.put(CyfaConfig.KEY_STATUS_MESSAGE, statusMessage);
         }
 
         if (imageName != null) {
-            result.put(Config.KEY_IMAGE_NAME, imageName);
+            result.put(CyfaConfig.KEY_IMAGE_NAME, imageName);
         }
 
         if (pushId != null) {
-            result.put(Config.KEY_PUSH_ID, pushId);
+            result.put(CyfaConfig.KEY_PUSH_ID, pushId);
         }
 
         if (theme != null) {
-            result.put(Config.KEY_THEME, theme);
+            result.put(CyfaConfig.KEY_THEME, theme);
         }
 
         return result;

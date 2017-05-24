@@ -1,7 +1,7 @@
 package com.psyphertxt.cyfalibrary.models;
 
 
-import com.psyphertxt.cyfalibrary.Config;
+import com.psyphertxt.cyfalibrary.CyfaConfig;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public class PhoneContact implements Serializable, FormatType.Namable {
 
     public String getPrimaryPhoneNumber() {
 
-        return (phoneNumbers.size() > 0) ? phoneNumbers.get(0) : Config.EMPTY_STRING;
+        return (phoneNumbers.size() > 0) ? phoneNumbers.get(0) : CyfaConfig.EMPTY_STRING;
 
     }
 

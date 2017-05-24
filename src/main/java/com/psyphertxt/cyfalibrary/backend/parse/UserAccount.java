@@ -10,7 +10,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
-import com.psyphertxt.cyfalibrary.Config;
+import com.psyphertxt.cyfalibrary.CyfaConfig;
 import com.psyphertxt.cyfalibrary.backend.Backend;
 import com.psyphertxt.cyfalibrary.listeners.AccountListener;
 import com.psyphertxt.cyfalibrary.listeners.CallbackListener;
@@ -33,12 +33,12 @@ public class UserAccount implements Backend.Account {
     public void userValidation(String phoneNumber, final CallbackListener.callbackForResults callbackForResults) {
 
         HashMap<String, Object> params = new HashMap<>();
-        params.put(Config.KEY_PHONE_NUMBER, phoneNumber);
+        params.put(CyfaConfig.KEY_PHONE_NUMBER, phoneNumber);
 
         //get users number from edit text field
         //send users number to cloud code
         //to check if a user exist with that number
-        ParseCloud.callFunctionInBackground(Config.DEFINE_USER_VALIDATION, params, new FunctionCallback<Object>() {
+        ParseCloud.callFunctionInBackground(CyfaConfig.DEFINE_USER_VALIDATION, params, new FunctionCallback<Object>() {
 
             public void done(Object result, ParseException e) {
 
@@ -77,7 +77,7 @@ public class UserAccount implements Backend.Account {
 
         try {
 
-            ParseUser.logInInBackground(user.getString(Config.KEY_USERNAME), user.getString(Config.KEY_PASSWORD), new LogInCallback() {
+            ParseUser.logInInBackground(user.getString(CyfaConfig.KEY_USERNAME), user.getString(CyfaConfig.KEY_PASSWORD), new LogInCallback() {
                 @Override
                 public void done(ParseUser parseUser, ParseException e) {
 

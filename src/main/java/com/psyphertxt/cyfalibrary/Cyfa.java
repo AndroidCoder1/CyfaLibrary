@@ -1,13 +1,10 @@
 package com.psyphertxt.cyfalibrary;
 
 import android.content.Context;
-import android.content.res.Resources;
 
 import com.facebook.stetho.BuildConfig;
 import com.facebook.stetho.Stetho;
-import com.parse.Parse;
 import com.parse.ParseObject;
-import com.psyphertxt.cyfalibrary.Config;
 import com.psyphertxt.cyfalibrary.backend.parse.User;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
@@ -37,7 +34,7 @@ public class Cyfa {
 
         Realm.init(context);
 
-        Config.initilaizeParseConfigs(context);
+        CyfaConfig.initilaizeParseConfigs(context);
         //set up subclasses for parse
         ParseObject.registerSubclass(User.class);
 

@@ -3,7 +3,7 @@ package com.psyphertxt.cyfalibrary.backend.parse;
 import com.parse.ParseACL;
 import com.parse.ParseClassName;
 import com.parse.ParseUser;
-import com.psyphertxt.cyfalibrary.Config;
+import com.psyphertxt.cyfalibrary.CyfaConfig;
 
 import org.json.JSONArray;
 
@@ -33,23 +33,23 @@ public class User extends ParseUser {
     }
 
     public void setUsername(String username) {
-        put(Config.KEY_USERNAME, username);
+        put(CyfaConfig.KEY_USERNAME, username);
     }
 
     public JSONArray getContacts() {
-        return getJSONArray(Config.KEY_CONTACTS);
+        return getJSONArray(CyfaConfig.KEY_CONTACTS);
     }
 
     public void setContacts(Array contacts) {
-        put(Config.KEY_CONTACTS, contacts);
+        put(CyfaConfig.KEY_CONTACTS, contacts);
     }
 
     public int getType() {
-        return getInt(Config.KEY_TYPE);
+        return getInt(CyfaConfig.KEY_TYPE);
     }
 
     public void setType(int type) {
-        put(Config.KEY_TYPE, type);
+        put(CyfaConfig.KEY_TYPE, type);
     }
 
     public class Type {

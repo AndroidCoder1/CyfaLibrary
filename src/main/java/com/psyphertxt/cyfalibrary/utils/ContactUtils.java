@@ -13,7 +13,7 @@ import android.text.TextUtils;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
-import com.psyphertxt.cyfalibrary.Config;
+import com.psyphertxt.cyfalibrary.CyfaConfig;
 import com.psyphertxt.cyfalibrary.listeners.CallbackListener;
 import com.psyphertxt.cyfalibrary.listeners.ContactsLoaderListener;
 import com.psyphertxt.cyfalibrary.models.Country;
@@ -122,7 +122,7 @@ public class ContactUtils {
 
 
     public static void getServerContacts(HashMap<String, Object> payload, final CallbackListener.callbackForResults callbackForResults) {
-        ParseCloud.callFunctionInBackground(Config.DEFINE_GET_CONTACTS, payload, new FunctionCallback<HashMap<String, Object>>() {
+        ParseCloud.callFunctionInBackground(CyfaConfig.DEFINE_GET_CONTACTS, payload, new FunctionCallback<HashMap<String, Object>>() {
 
             @Override
             public void done(HashMap<String, Object> hashMap, ParseException e) {
@@ -175,7 +175,7 @@ public class ContactUtils {
 
     public static String normalizeNumber(String phoneNumber) {
         if (TextUtils.isEmpty(phoneNumber)) {
-            return Config.EMPTY_STRING;
+            return CyfaConfig.EMPTY_STRING;
         }
 
         StringBuilder sb = new StringBuilder();

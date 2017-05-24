@@ -4,14 +4,13 @@ package com.psyphertxt.cyfalibrary.utils;
 import android.content.Context;
 import android.util.Log;
 
-import com.psyphertxt.cyfalibrary.Config;
+import com.psyphertxt.cyfalibrary.CyfaConfig;
 import com.psyphertxt.cyfalibrary.Prefs;
 import com.psyphertxt.cyfalibrary.backend.parse.User;
 import com.psyphertxt.cyfalibrary.backend.parse.UserAccount;
 import com.psyphertxt.cyfalibrary.listeners.CallbackListener;
 import com.psyphertxt.cyfalibrary.models.Country;
 import com.psyphertxt.cyfalibrary.models.ErrorCodes;
-import com.psyphertxt.cyfalibrary.models.Profile;
 import com.psyphertxt.cyfalibrary.models.SignUp;
 
 import org.json.JSONException;
@@ -19,7 +18,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-import static com.psyphertxt.cyfalibrary.Config.TAG;
+import static com.psyphertxt.cyfalibrary.CyfaConfig.TAG;
 
 /**
  * Class with helper methods for signing up.
@@ -70,23 +69,23 @@ public class SignUpUtils {
                         if (responseCode == NetworkUtils.RESPONSE_OK) {
 
                             @SuppressWarnings("unchecked")
-                            HashMap<String, Object> _data = (HashMap<String, Object>) _result.get(Config.DATA);
+                            HashMap<String, Object> _data = (HashMap<String, Object>) _result.get(CyfaConfig.DATA);
 
                             //any cloud code call should return a status message
-                            signUp.isExisting((Boolean) _data.get(Config.KEY_IS_EXISTING_USER));
+                            signUp.isExisting((Boolean) _data.get(CyfaConfig.KEY_IS_EXISTING_USER));
 
                             //lets save the code from the server for the next activity
-                            signUp.setCode((Integer) _data.get(Config.KEY_CODE));
+                            signUp.setCode((Integer) _data.get(CyfaConfig.KEY_CODE));
 
                             //if we detect an existing user, lets add these extra values
                             //to be sent to the next intent
                             if (signUp.isExisting()) {
-                                signUp.setSessionToken((String) _data.get(Config.KEY_SESSION_TOKEN));
-                                signUp.setUsername((String) _data.get(Config.KEY_USERNAME));
+                                signUp.setSessionToken((String) _data.get(CyfaConfig.KEY_SESSION_TOKEN));
+                                signUp.setUsername((String) _data.get(CyfaConfig.KEY_USERNAME));
                             }
 
                             //update sign up class
-                            prefs.storeObject(Config.KEY_SIGN_UP, signUp);
+                            prefs.storeObject(CyfaConfig.KEY_SIGN_UP, signUp);
 
                         } else {
                             listener.error(ErrorCodes.RESPONSE_CODE_EXCEPTION_ERROR.toString());
@@ -119,7 +118,7 @@ public class SignUpUtils {
 
             //get user data from event bus
             final Prefs prefs = new Prefs(context);
-            final SignUp signUp = (SignUp) prefs.getStoredSignUpObject(Config.KEY_SIGN_UP);
+            final SignUp signUp = (SignUp) prefs.getStoredSignUpObject(CyfaConfig.KEY_SIGN_UP);
 
             if (signUp != null) {
 
@@ -129,7 +128,7 @@ public class SignUpUtils {
 
                 //compare verification code if it matches create a new user
                 //and show next activity
-                if (verifyCode.length() == Config.CODE_LENGTH && Integer.parseInt(verifyCode) == signUp.getCode()) {
+                if (verifyCode.length() == CyfaConfig.CODE_LENGTH && Integer.parseInt(verifyCode) == signUp.getCode()) {
 
                     //Alerts.progress(context);
 
@@ -170,12 +169,12 @@ public class SignUpUtils {
 
                         JSONObject user = new JSONObject();
                         try {
-                            user.put(Config.KEY_USERNAME, signUp.getUsername());
-                            user.put(Config.KEY_PASSWORD, signUp.getSessionToken());
+                            user.put(CyfaConfig.KEY_USERNAME, signUp.getUsername());
+                            user.put(CyfaConfig.KEY_PASSWORD, signUp.getSessionToken());
                             userAccount.existingUser(user, new CallbackListener.callbackForResults() {
                                 @Override
                                 public void success(Object result) {
-                                    prefs.storeObject(Config.KEY_USER, result);
+                                    prefs.storeObject(CyfaConfig.KEY_USER, result);
                                     listener.success((User)result);
                                 }
 

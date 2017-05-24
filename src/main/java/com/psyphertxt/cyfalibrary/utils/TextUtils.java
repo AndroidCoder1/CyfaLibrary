@@ -9,7 +9,7 @@ import android.text.Spanned;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.psyphertxt.cyfalibrary.Config;
+import com.psyphertxt.cyfalibrary.CyfaConfig;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -56,13 +56,13 @@ public class TextUtils {
     }
 
     public static String truncateText(String text, int max) {
-        return text.substring(0, Math.min(text.length(), max)) + Config.ELLIPSIS;
+        return text.substring(0, Math.min(text.length(), max)) + CyfaConfig.ELLIPSIS;
 
     }
 
     public static String trim(String text) {
-        if (text.length() >= Config.STATUS_TEXT_MAX_LENGTH) {
-            return truncateText(text, Config.STATUS_TEXT_MAX_LENGTH);
+        if (text.length() >= CyfaConfig.STATUS_TEXT_MAX_LENGTH) {
+            return truncateText(text, CyfaConfig.STATUS_TEXT_MAX_LENGTH);
         }
         return text;
     }
@@ -76,7 +76,7 @@ public class TextUtils {
     }
 
     public static String splitURI(String path) {
-        String stringPath = Config.EMPTY_STRING;
+        String stringPath = CyfaConfig.EMPTY_STRING;
         try {
             URI uri = new URI(path);
             String[] segments = uri.getPath().split("/");
@@ -166,7 +166,7 @@ public class TextUtils {
     }
 
     public static String joinWithSlash(String... values) {
-        return join(Config.FORWARD_SLASH, values);
+        return join(CyfaConfig.FORWARD_SLASH, values);
     }
 
 }
