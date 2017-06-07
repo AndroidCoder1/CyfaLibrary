@@ -1,12 +1,43 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
 
+group = 'com.psyphertxt'
+archivesBaseName = 'cyfalibrary'
+version = '0.0.2-SNAPSHOT'
 
+publishing {
+    repositories {
+        maven {
+            url myMavenRepoWriteUrl
+            credentials {
+                username 'myMavenRepo'
+                password myMavenRepoReadPassword
+            }
+        }
+    }
+
+    publications {
+        aar(MavenPublication) {
+            groupId group
+            artifactId archivesBaseName
+            version project.version
+
+//            // Optional
+//            pom.withXml {
+//                asNode().appendNode('name','Dependency Name')
+//                asNode().appendNode('description','Dependency Description')
+//                asNode().appendNode('url','http://medyo.github.com')
+//            }
+
+            artifact("$buildDir/outputs/aar/${archivesBaseName}-release.aar")        }
+    }
+}
 ext {
     PUBLISH_GROUP_ID = 'com.psyphertxt' //Change this to your own domain
     PUBLISH_ARTIFACT_ID = 'cyfalibrary' //Change this to the name of your library
-    PUBLISH_VERSION = '1.1.7' // Version code you want. 1.0.0 is a good start
+    PUBLISH_VERSION = '1.1.8' // Version code you want. 1.0.0 is a good start
 }
 
 allprojects {
@@ -60,6 +91,9 @@ android {
         }
     }
 }
+configurations {
+    javadocDeps
+}
 
 dependencies {
 
@@ -67,6 +101,10 @@ dependencies {
 
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-annotations:25.3.1'
+    javadocDeps 'com.android.support:support-annotations:25.3.1'
+    androidTestCompile 'junit:junit:4.+'
+    androidTestCompile 'com.jayway.android.robotium:robotium-solo:+'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -128,10 +166,10 @@ dependencies {
 //    classifier = 'sources'
 //}
 //
-//task javadoc(type: Javadoc) {
-//    source = android.sourceSets.main.java.srcDirs
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//}
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += configurations.javadocDeps
+}
 //
 //task javadocJar(type: Jar, dependsOn: javadoc) {
 //    classifier = 'javadoc'
